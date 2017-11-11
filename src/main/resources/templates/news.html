@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>News-API</title>
+<link rel="stylesheet" th:href="@{/css/default.css}" />
+
+
+</head>
+<body>
+	<!-- BEGIN wrapper -->
+	<div id="wrapper">
+		<!-- BEGIN header -->
+		<div id="header">
+			<div class="break"></div>
+			<div class="logo">
+				<h1>World Wide News</h1>
+				<br />
+				<p th:text="'Source :'+${mediaSource}"></p>
+			</div>
+
+			<div class="break"></div>
+			<ol>
+				<li><a th:href="@{/news-api/home}">Home</a></li>
+				<li><a th:href="@{/news-api/contactUs}">Contact Us</a></li>
+				<li><a th:href="@{/news-api/getEmailForm}">@Notification</a></li>
+			</ol>
+			<div class="break"></div>
+		</div>
+		<!-- END header -->
+		<!-- BEGIN content -->
+		<div id="content">
+			<!-- begin post -->
+			<div class="post" th:each="respones : ${respones}">
+				<div class="thumb">
+					<img th:src="${respones.urlToImage}" height="70px" width="70px" />
+				</div>
+				<h2>
+					<a th:text="${respones.title}" th:href="${respones.url}"></a>
+				</h2>
+				<p class="date" th:text="${respones.publishedAt}"></p>
+				<p th:text="${respones.description}"></p>
+			</div>
+			<!-- end post -->
+
+
+		</div>
+		<!-- END content -->
+		<!-- BEGIN sidebar -->
+		<div id="sidebar">
+			<!-- begin ads -->
+			<!-- end ads -->
+			<!-- begin search -->
+			<div class="wrapper">
+				<!-- begin popular posts -->
+				<h2>Popular Posts</h2>
+				<ul th:each="respones : ${respones}">
+					<li><a th:text="${respones.title}" th:href="${respones.url}"></a></li>
+				</ul>
+				<!-- end popular posts -->
+
+				<!-- begin tags -->
+
+				<div class="tags"></div>
+				<!-- end tags -->
+				<!-- BEGIN left -->
+				<div class="l sbar">
+					<!-- begin categories -->
+					<h2>Media Source</h2>
+					<ul th:each="list : ${idLists}">
+						<li><a th:text="${list.id}"
+							th:href="@{'/news-api/getSource?id=' + ${list.id}}"></a></li>
+					</ul>
+					<!-- end categories -->
+				</div>
+			</div>
+		</div>
+		<!-- END sidebar -->
+		<!-- BEGIN footer -->
+		<div id="footer">
+			<p>
+				Copyright &copy; 2009 - <a
+					href="http://all-free-download.com/free-website-templates/">Website
+					Name</a> &middot; All Rights Reserved
+			</p>
+		</div>
+		<!-- END footer -->
+	</div>
+	<!-- END wrapper -->
+</body>
+</html>

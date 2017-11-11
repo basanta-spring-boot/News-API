@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>News-API</title>
+<link rel="stylesheet" th:href="@{/css/style.css}" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+<style type="text/css">
+* {
+	margin: 0;
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+a {
+	text-decoration: none;
+}
+
+header {
+	background-size: cover;
+	background-position: center;
+	height: 100vh;
+	width: 100%;
+}
+
+#darkBack {
+	width: 100%;
+	height: 100vh;
+	background: rgba(76, 56, 75, .15);
+}
+
+#popUp {
+	position: fixed;
+	max-width: 424px;
+	width: 27%;
+	height: 200px;
+	background: rgba(236, 240, 241, 1);
+	border: 7px solid #fff;
+	bottom: 340px;
+	float: center;
+	margin-left: 464px;
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+	transition: all 1s ease;
+	float: center;
+	margin-left: 470px;
+}
+
+#new span {
+	background: #fff;
+	position: absolute;
+	color: #1c8dc4;
+	padding: 4px 10px;
+	font-size: 16px;
+	font-weight: 600;
+	letter-spacing: 1px;
+	margin-top: -5px;
+}
+
+#popUp .close {
+	color: #464646;
+	right: 8px;
+	top: 0px;
+	position: absolute;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+#popUp h2 {
+	font-size: 17px;
+	color: #464646;
+	line-height: 24px;
+	font-weight: 400;
+	text-align: center;
+	margin-top: 40px;
+	padding: 0 20px;
+}
+
+#body {
+	height: 1200px;
+	background: #eee;
+}
+
+a.button {
+	margin: 0 auto;
+	text-align: center;
+	right: 0;
+	left: 0;
+	position: absolute;
+	width: 120px;
+	font-size: 15px;
+	color: #fff;
+	border-bottom: 2px solid #18729f;
+	background: #1c8dc4;
+	border-radius: 4px;
+	padding: 8px 0;
+}
+
+#plus {
+	position: fixed;
+	color: #fff;
+	bottom: 15%;
+	font-size: 15px;
+	margin-left: -425px;
+	-webkit-transition: all 1.25s ease;
+	-moz-transition: all 1.25s ease;
+	-o-transition: all 1.25s ease;
+	transition: all 1.25s ease;
+	cursor: pointer;
+	text-align: left;
+	letter-spacing: 1px;
+}
+
+#plus span {
+	position: absolute;
+	margin-top: 38px;
+	left: 4px;
+}
+
+#plus::after {
+	content: '';
+	display: block;
+	display: relative;
+	border-top: 55px solid transparent;
+	border-bottom: 55px solid transparent;
+	border-left: 55px solid #1c8dc4;
+}
+
+input.button {
+	margin: 0 auto;
+	text-align: center;
+	right: 0;
+	left: 0;
+	position: absolute;
+	width: 120px;
+	font-size: 15px;
+	color: #fff;
+	border-bottom: 2px solid #18729f;
+	background: #1c8dc4;
+	border-radius: 4px;
+	padding: 8px 0;
+}
+
+#popUp form {
+	font-size: 17px;
+	color: #464646;
+	line-height: 18px;
+	font-weight: 400;
+	text-align: center;
+	margin-top: 26px;
+	padding: 0 20px;
+}
+
+@media all and (max-width: 900px) {
+	#popUp {
+		margin-left: -425px;
+	}
+	#plus {
+		margin-left: 0px;
+	}
+}
+</style>
+
+</head>
+<body>
+	<div align="center">
+		<p th:text="${errorMessage}"></p>
+		<p th:text="${mailMessage}" style="color: blue; font-weight: bold;"></p>
+	</div>
+	<div class="navbar">
+		<a th:href="@{/news-api/home}">Home</a> <a
+			th:href="@{/news-api/contactUs}">Contact us</a>
+		<div class="dropdown">
+			<button class="dropbtn">
+				Media Source <i class="fa fa-caret-down"></i>
+			</button>
+			<div class="dropdown-content">
+				<div th:each="list : ${idLists}">
+					<a th:href="@{'/news-api/getSource?id=' + ${list.id}}"><b
+						th:text="${list.id}"></b></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div align="center" th:each="response : ${msg}">
+		<header>
+			<div id="darkBack"></div>
+			<div id="popUp">
+				<div id="close" class="close">
+					<i class="fa fa-times"></i>
+				</div>
+				<h2 th:text="${rateMessage}"></h2>
+				<br /> <a th:href="@{/news-api/home}" class="button">OK</a>
+			</div>
+			<div id="plus">
+				<span>NEW<br />&nbsp;&nbsp;<i class="fa fa-plus"></i></span>
+			</div>
+		</header>
+	</div>
+	<div align="center" th:each="response : ${msg1}">
+		<header>
+			<div id="darkBack"></div>
+			<div id="popUp" style="height: 150px;">
+				<div id="close" class="close">
+					<i class="fa fa-times"></i>
+				</div>
+				<form action="/news-api/sendEmail">
+					<input type="text" name="email" placeholder="Enter @Email id"
+						required="required"
+						style="width: 100%; padding: 10px 30px; margin: 1px -2px; box-sizing: border-box; padding: 10px 30px; margin: 1px -2px; text-align: center;" />
+					<br /> <br /> <input type="submit" value="Send" class="button" />
+				</form>
+			</div>
+			<div id="plus">
+				<span>NEW<br />&nbsp;&nbsp;<i class="fa fa-plus"></i></span>
+			</div>
+		</header>
+	</div>
+	<div class="form" th:each="sortBy : ${sortBys}">
+		<div class="forceColor"></div>
+		<form action="/news-api/getNews">
+			<div class="topbar">
+				<div class="spanColor"></div>
+				<input type="text" class="input" id="password" th:value="${newsId}"
+					name="source" /> <select name="sortBy" class="input">
+					<div th:each="sortBy : ${sortBys}">
+						<option th:value="${sortBy.value}"><b
+								th:text="${sortBy.value}"></b></option>
+					</div>
+				</select>
+			</div>
+			<button class="submit" id="submit">Subscribe News</button>
+		</form>
+	</div>
+</body>
+</html>

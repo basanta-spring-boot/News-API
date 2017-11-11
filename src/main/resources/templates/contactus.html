@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1"></meta>
+<title>Contact Us</title>
+<link rel="stylesheet" th:href="@{/css/contact.css}" />
+</head>
+<body>
+	<div id="modal">
+		<h1>Contact Details.</h1>
+		<p th:text="'Name : '+${contact.name}"></p>
+		<p th:text="'Email : '+${contact.email}"></p>
+		<p th:text="'Mobile : '+${contact.mobile}"></p>
+		<p>
+			Facebook Profile: <a th:href="${contact.fbUrl}"
+				style="color: lavender; text-decoration: none; font-family: monospace;">Visit
+				Profile here</a>
+		</p>
+		<p>
+			Facebook Group: <a th:href="${contact.fbGroupUrl}"
+				style="color: lavender; text-decoration: none; font-family: monospace;">Visit
+				Group</a>
+		</p>
+		<br />
+		<p style="text-align: center;">Did you Like my Application ?</p>
+		<a class="yes" th:href="${'/news-api/rate?rate=like'}">Like</a> <br />
+		<a class="no" th:href="${'/news-api/rate?rate=disLike'}">Dislike</a>
+	</div>
+</body>
+</html>

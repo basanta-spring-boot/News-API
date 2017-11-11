@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Notification</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style type="text/css">
+ol {
+	border-left: 5px solid red;
+	background-color: #f1f1f1;
+	list-style-type: none;
+	padding: 10px 20px;
+}
+
+ul {
+	list-style-type: none;
+	margin: 12px 0 15px 41px;;
+}
+
+li {
+	margin: 0 0 10px 0;
+}
+</style>
+</head>
+<body>
+	<P>Dear Subscriber,</P>
+	<p
+		th:text="'Please find update news as per your selected media Source : '+${mediaSource}+'('+${sortBy}+')'"
+		style="color: navy; font-weight: bold; font-family: sans-serif;"></p>
+	<div align="center">
+		<ol th:each="respones : ${respones}">
+			<li style="font-style: italic; font-weight: bold;"
+				th:text="${respones.title}"></li>
+			<ul>
+				<li style="color: blue; font-style: normal; font-weight: normal;"
+					th:text="${respones.url}"></li>
+			</ul>
+		</ol>
+	</div>
+
+	<p>Regards,</p>
+	<p style="font-weight: bold; color: red; font-family: cursive;"
+		align="left">Basant Hota</p>
+</body>
+</html>
